@@ -15,4 +15,4 @@ kernel:
   path: /kernel
 
 # add nginx docker entrypoint here if you want to run nginx as well
-cmdline: "/urunit /docker-entrypoint.sh nginx -g \"daemon off;\""
+cmdline: "/urunit /run-nginx.sh"

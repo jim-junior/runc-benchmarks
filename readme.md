@@ -38,4 +38,12 @@ sudo nerdctl run --rm --runtime=runc \
 
 Outputs in `io-benchmarks/fio_runc.json`
 
-### 
+### Memory
+
+```sh
+sudo nerdctl run -d \
+  --name runc-bench \
+  --runtime runc \
+  alpine:latest \
+  sh -c "apk add --no-cache stress-ng && stress-ng --vm 1 --vm-bytes 256M --timeout 30s"
+```
