@@ -38,10 +38,17 @@ Also explored `wrk`, `wrk2` and `iperf3`.
 
   - `iperf3` and `wrk2` face the Coordinated Omission problem. This means the tail latencies(p99, p99.9), which are KEY, are skewed, making a struggling system look incredibly fast on paper
 
+> I could use `iperf3` to stress test for raw throughput at network layer, and use `fortio` of the precise tail latencies(p99, p99.9)
+
 ### Storage
 
+Key metrics collected:
 
-Benchmarked using `fio`
+- Throughput Metrics
+- IOPS Metrics
+- Latency Metrics (Crucial for Sandboxes)
+
+Benchmarked using `fio` and `sysbench`
 
 ```sh
 sudo nerdctl run --rm --runtime=runc \
@@ -50,3 +57,16 @@ sudo nerdctl run --rm --runtime=runc \
 ```
 
 Outputs in `io-benchmarks/fio_runc.json`
+
+I am collecting:
+
+- Synthetic Performance via FIO
+  - measure raw data throughput and hardware boundary overhead.
+- Metadata Performance via Sysbench:
+  - focus on the overhead of managing the filesystem structure itself.
+
+### Lifecycle
+
+Will focus on stated metrics above. 
+
+Currently exploring the OCI events as a way to measure the timestanps
