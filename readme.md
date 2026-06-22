@@ -16,6 +16,12 @@ Extensive benchmark of container runtimes `runc`, `urunc`, `kata containers` and
 
 ### Network
 
+Main metrics to be collected are:
+
+- Throughput
+- Baseline RTT
+- and Tail Latency
+
 Measured using `fortio`
 
 ```sh
@@ -26,7 +32,14 @@ docker run --rm --net=host -v $(pwd):/var/fortio fortio/fortio load -qps 2000 -c
 
 Outputs in `./fortio/runc_report.json`
 
+Also explored `wrk`, `wrk2` and `iperf3`.
+
+- Why not use these?
+
+  - `iperf3` and `wrk2` face the Coordinated Omission problem. This means the tail latencies(p99, p99.9), which are KEY, are skewed, making a struggling system look incredibly fast on paper
+
 ### Storage
+
 
 Benchmarked using `fio`
 
@@ -37,13 +50,3 @@ sudo nerdctl run --rm --runtime=runc \
 ```
 
 Outputs in `io-benchmarks/fio_runc.json`
-
-### Memory
-
-```sh
-sudo nerdctl run -d \
-  --name runc-bench \
-  --runtime runc \
-  alpine:latest \
-  sh -c "apk add --no-cache stress-ng && stress-ng --vm 1 --vm-bytes 256M --timeout 30s"
-```
