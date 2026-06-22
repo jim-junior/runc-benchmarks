@@ -1,0 +1,18 @@
+#syntax=harbor.nbfc.io/nubificus/bunny:latest
+version: v0.1
+
+platforms:
+  framework: linux
+  monitor: qemu
+  architecture: x86
+
+rootfs:
+  from: nginx-urunit:latest
+  type: raw
+
+kernel:
+  from: harbor.nbfc.io/nubificus/urunc/linux-kernel-qemu:v6.14
+  path: /kernel
+
+# add nginx docker entrypoint here if you want to run nginx as well
+cmdline: "/urunit /docker-entrypoint.sh nginx -g \"daemon off;\""
