@@ -70,3 +70,29 @@ I am collecting:
 Will focus on stated metrics above. 
 
 Currently exploring the OCI events as a way to measure the timestanps
+
+```sh
+sudo nerdctl run --rm  --snapshotter devmapper  --runtime "io.containerd.urunc.v2"  jimjuniorb/fio-urunc:0.3 --name=test-runc --directory=/bench --rw=randrw --bs=4k --size=512M --direct=1 --time_based --runtime=30 --group_reporting --output-format=json
+```
+
+
+```sh
+sudo nerdctl run --rm  -it --runtime "io.containerd.runsc.v1"  jimjuniorb/fio:0.1 --name=test-runsc --directory=/bench --rw=randrw --bs=4k --size=512M --direct=1 --time_based --runtime=30 --group_reporting --output-format=json
+```
+
+```sh
+sudo nerdctl run --rm \
+  --snapshotter devmapper \
+  --runtime io.containerd.urunc.v2 \
+  docker.io/jimjuniorb/fio-urunc:0.4 \
+  --name=smoke-test \
+  --filename=/bench/test.dat \
+  --rw=randrw \
+  --bs=4k \
+  --size=32M \
+  --time_based \
+  --runtime=5 \
+  --direct=1 \
+  --output-format=json
+
+```
